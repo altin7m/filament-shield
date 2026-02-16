@@ -48,7 +48,7 @@ class RoleResource extends Resource
                     ->schema([
                         Section::make()
                             ->schema([
-                                TextInput::make('name')
+                                TextInput::make('display_name')
                                     ->label(__('filament-shield::filament-shield.field.name'))
                                     ->unique(
                                         ignoreRecord: true, /** @phpstan-ignore-next-line */
@@ -89,10 +89,9 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('display_name')
                     ->weight(FontWeight::Medium)
                     ->label(__('filament-shield::filament-shield.column.name'))
-                    ->formatStateUsing(fn (string $state): string => Str::headline($state))
                     ->searchable(),
                 TextColumn::make('guard_name')
                     ->badge()
@@ -137,7 +136,7 @@ class RoleResource extends Resource
     {
         return [
             'index' => ListRoles::route('/'),
-            'create' => CreateRole::route('/create'),
+            // 'create' => CreateRole::route('/create'),
             'view' => ViewRole::route('/{record}'),
             'edit' => EditRole::route('/{record}/edit'),
         ];
