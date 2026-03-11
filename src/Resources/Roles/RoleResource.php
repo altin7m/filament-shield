@@ -59,6 +59,8 @@ class RoleResource extends Resource
                                 TextInput::make('guard_name')
                                     ->label(__('filament-shield::filament-shield.field.guard_name'))
                                     ->default(Utils::getFilamentAuthGuard())
+                                    ->disabled()
+                                    ->dehydrated()
                                     ->nullable()
                                     ->maxLength(255),
 
@@ -70,7 +72,6 @@ class RoleResource extends Resource
                                     ->options(fn (): array => in_array(Utils::getTenantModel(), [null, '', '0'], true) ? [] : Utils::getTenantModel()::pluck('name', 'id')->toArray())
                                     ->visible(fn (): bool => static::shield()->isCentralApp() && Utils::isTenancyEnabled())
                                     ->dehydrated(fn (): bool => static::shield()->isCentralApp() && Utils::isTenancyEnabled()),
-                                static::getSelectAllFormComponent(),
 
                             ])
                             ->columns([
@@ -80,7 +81,6 @@ class RoleResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull(),
-                static::getShieldFormComponents(),
             ]);
     }
 
